@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 app.use(express.json());
-const {ConstraintTracker} = require('./models')
+app.use(express.urlencoded({ extended: false }));
+const {ConstraintTracker, ConstraintItem} = require('./models')
 // const methodOverride = require('method-override');
 // app.use(methodOverride('_method'));
 
@@ -15,6 +16,74 @@ app.get("/constraintTracker" , async (request, response) => {
     }
 
 });
+
+app.post("/constraintTracker", async (request, response) => {
+    let memberNameArr = request.body.memberName;
+    let memberCompanyArr = request.body.memberCompany;
+    //parse data into 'group' object
+    let groupArr = [memberNameArr.length];
+    for(let i=0; i<memberNameArr.length; i++){
+        let memberObj = {
+            name: memberNameArr[i],
+            company: memberCompanyArr[i]
+        }
+        groupArr[i] = memberObj;
+    }
+
+
+    try{
+        await ConstraintTracker.insertMany({
+            trackerName: request.body.trackerName,
+            group: groupArr,
+            constraintOpen: 1
+        })
+    }
+    catch(error){
+        response.status(500).send(error);
+    }
+
+
+    response.redirect("http://localhost:3001");
+})
+
+
+
+app.get("/constraintItem/:id" , async (request, response) => {
+    try{
+
+
+        const constraintItemArr = await ConstraintItem.find({
+            trackerId: request.params.id
+        });
+        response.json({constraintItemArr});
+    }
+    catch(error){
+        response.status(500).send(error);
+    }
+
+});
+
+app.post("/constraintItem/:id" , async (request, response) => {
+    try{
+        await ConstraintItem.insertMany({
+            itemName: request.body.itemName,
+            trackerId: request.params.id
+        })
+
+
+    }
+    catch(error){
+        response.status(500).send(error);
+    }
+
+    response.redirect(`http://localhost:3001/constraints/${request.params.id}`)
+
+});
+
+
+
+
+
 
 
 

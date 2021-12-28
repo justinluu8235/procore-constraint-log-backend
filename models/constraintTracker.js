@@ -7,7 +7,11 @@ const constraintTrackerSchema = new mongoose.Schema({
             name: String,
             company: String
         }],
-    constraintsOpen: Number
+    constraintsOpen: Number,
+    // constraints: [{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'ConstraintItem'
+    // }]
 })
 
 

@@ -24,5 +24,6 @@ db.on("error", ()=>{
 
 
 module.exports = {
-    ConstraintTracker: require("./constraintTracker")
+    ConstraintTracker: require("./constraintTracker"),
+    ConstraintItem: require("./constraintItem")
 }
