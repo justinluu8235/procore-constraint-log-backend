@@ -66,7 +66,14 @@ app.get("/constraintItem/:id" , async (request, response) => {
 app.post("/constraintItem/:id" , async (request, response) => {
     try{
         await ConstraintItem.insertMany({
+            driver: request.body.driver,
             itemName: request.body.itemName,
+            bICTeam: request.body.bICTeam,
+            bICName: request.body.bICName,
+            description: request.body.description,
+            nextStep: request.body.nextStep,
+            targetDate: request.body.targetDate,
+            priorityLevel: request.body.targetDate,
             trackerId: request.params.id
         })
 
