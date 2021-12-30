@@ -17,10 +17,23 @@ app.get("/constraintTracker" , async (request, response) => {
 
 });
 
+app.get("/constraintTracker/:id" , async (request, response) => {
+    try{
+        const constraintTracker = await ConstraintTracker.findById(request.params.id);
+        response.json({constraintTracker});
+    }
+    catch(error){
+        response.status(500).send(error);
+    }
+
+});
+
 app.post("/constraintTracker", async (request, response) => {
+  
     let memberNameArr = request.body.memberName;
     let memberCompanyArr = request.body.memberCompany;
-    //parse data into 'group' object
+
+    //parse data into 'group' object    
     let groupArr = [memberNameArr.length];
     for(let i=0; i<memberNameArr.length; i++){
         let memberObj = {
@@ -29,7 +42,6 @@ app.post("/constraintTracker", async (request, response) => {
         }
         groupArr[i] = memberObj;
     }
-
 
     try{
         await ConstraintTracker.insertMany({
@@ -49,13 +61,15 @@ app.post("/constraintTracker", async (request, response) => {
 
 
 app.get("/constraintItem/:id" , async (request, response) => {
+    
     try{
-
-
         const constraintItemArr = await ConstraintItem.find({
             trackerId: request.params.id
         });
-        response.json({constraintItemArr});
+
+        const constraintTracker = await ConstraintTracker.findById(request.params.id);
+        let trackerName = constraintTracker.trackerName;
+        response.json({constraintItemArr, trackerName});
     }
     catch(error){
         response.status(500).send(error);
@@ -64,10 +78,12 @@ app.get("/constraintItem/:id" , async (request, response) => {
 });
 
 app.post("/constraintItem/:id" , async (request, response) => {
+    console.log('hi');
     try{
         await ConstraintItem.insertMany({
             driver: request.body.driver,
             itemName: request.body.itemName,
+            emailSubject: request.body.emailSubject,
             bICTeam: request.body.bICTeam,
             bICName: request.body.bICName,
             description: request.body.description,

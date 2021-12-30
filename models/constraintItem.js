@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const constraintItemSchema = new mongoose.Schema({
     driver:String,
     itemName: String, 
+    emailSubject: String,
     bICTeam: String, 
     bICName: String,
     description: String, 
