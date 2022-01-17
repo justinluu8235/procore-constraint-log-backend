@@ -6,7 +6,7 @@ const {ConstraintTracker, ConstraintItem} = require('./models')
 const methodOverride = require('method-override');
 app.use(methodOverride('_method'));
 
-
+const PORT = process.env.PORT || 3000;
 
 app.get("/constraintTracker" , async (request, response) => {
     try{
@@ -327,6 +327,6 @@ async function getStats(trackerID){
     return stats;
 }
 
-app.listen(3000, () =>{
+app.listen(PORT, () =>{
     console.log("Server is running at port 3000");
 })
