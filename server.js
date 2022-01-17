@@ -4,6 +4,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 const {ConstraintTracker, ConstraintItem} = require('./models')
 const methodOverride = require('method-override');
+const res = require('express/lib/response');
 app.use(methodOverride('_method'));
 
 const PORT = process.env.PORT || 3000;
@@ -223,7 +224,7 @@ app.post("/constraintItem/:id" , async (request, response) => {
             trackerId: request.params.id
         })
 
-
+        res.redirect('https://procore-constraint-log.herokuapp.com/')
     }
     catch(error){
         response.status(500).send(error);
