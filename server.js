@@ -66,7 +66,7 @@ app.post("/constraintTracker", async (request, response) => {
     }
 
 
-    response.redirect("http://localhost:3001");
+    response.redirect("https://procore-constraint-log.herokuapp.com");
 })
 
 
@@ -107,7 +107,7 @@ app.post("/constraintTracker/:id", async (request, response) => {
             }
         });
 
-        response.redirect("http://localhost:3001")
+        response.redirect("https://procore-constraint-log.herokuapp.com/")
     }
     catch(err) {
         response.status(500).send(error);
@@ -129,7 +129,7 @@ app.delete("/constraintTracker/:id" , async (request, response) => {
         });
         console.log(deletedTracker);
         
-        response.redirect(`http://localhost:3001/`)
+        response.redirect(`https://procore-constraint-log.herokuapp.com/`)
     }
     catch(error){
         response.status(500).send(error);
@@ -199,7 +199,7 @@ app.post("/constraintItem/edit/:id" , async (request, response) => {
         let trackerId = item.trackerId;
 
 
-        response.redirect(`http://localhost:3001/constraints/${trackerId}`)
+        response.redirect(`https://procore-constraint-log.herokuapp.com/constraints/${trackerId}`)
     }
     catch(error){
         response.status(500).send(error);
@@ -224,13 +224,13 @@ app.post("/constraintItem/:id" , async (request, response) => {
             trackerId: request.params.id
         })
 
-        res.redirect('https://procore-constraint-log.herokuapp.com/')
+       
     }
     catch(error){
         response.status(500).send(error);
     }
 
-    response.redirect(`http://localhost:3001/constraints/${request.params.id}`)
+    response.redirect(`https://procore-constraint-log.herokuapp.com/constraints/${request.params.id}`)
 
 });
 
@@ -249,7 +249,7 @@ app.delete("/constraintItem/:id" , async (request, response) => {
             _id: request.params.id
         });
         console.log(deletedItem);
-        response.redirect(`http://localhost:3001/constraints/${trackerId}`)
+        response.redirect(`https://procore-constraint-log.herokuapp.com/constraints/${trackerId}`)
     }
     catch(error){
         response.status(500).send(error);
