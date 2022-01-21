@@ -189,7 +189,7 @@ app.post("/constraintItem/edit/:id" , async (request, response) => {
 
         },{
             $set: {
-                driver: request.body.driver,
+                driver: request.body.driver.trim(),
                 itemName: request.body.itemName,
                 emailSubject: request.body.emailSubject,
                 bICTeam: request.body.bICTeam,
@@ -220,7 +220,7 @@ app.post("/constraintItem/edit/:id" , async (request, response) => {
 app.post("/constraintItem/:id" , async (request, response) => {
     try{
         await ConstraintItem.insertMany({
-            driver: request.body.driver,
+            driver: request.body.driver.trim(),
             itemName: request.body.itemName,
             emailSubject: request.body.emailSubject,
             bICTeam: request.body.bICTeam,
